@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Dorking Tool</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #00ffe7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      padding: 40px 20px;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px #00ffe7;
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ffffff;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      background-color: #101010;
+      color: #00ffe7;
+      box-shadow: 0 0 10px #00ffe7 inset;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background-color: #00ffe7;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      box-shadow: 0 0 15px #00ffe7;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #00cccc;
+      transform: scale(1.03);
+    }
+
+    .results {
+      margin-top: 30px;
+      max-height: 400px;
+      overflow-y: auto;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #00ffe7;
+    }
+
+    .results a {
+      display: block;
+      margin-bottom: 8px;
+      color: #00ffe7;
+      text-decoration: none;
+      word-break: break-all;
+      transition: color 0.2s ease;
+    }
+
+    .results a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 5px #00ffe7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚡Ayush's Special Social Dorks 2035 ⚡</h1>
+    <input type="text" id="phoneInput" placeholder="Enter phone number..." />
+    <button id="dorkBtn">🚀 Generate Quantum Dorks</button>
+    <div class="results" id="results"></div>
+  </div>
+
+  <script>
+    const sites = [
+      'site:facebook.com','site:twitter.com','site:instagram.com','site:linkedin.com','site:github.com',
+      'site:peoplefinder.com','site:pinterest.com','site:vk.com','site:reddit.com','site:tiktok.com',
+      'site:twitch.tv','site:youtube.com','site:snapchat.com','site:telegram.me','site:web.whatsapp.com',
+      'site:medium.com','site:quora.com','site:behance.net','site:dribbble.com','site:slideshare.net'
+    ];
+
+    const powerDorks = [
+      'inurl:profile','intitle:profile','inurl:user','intitle:user','inurl:username','inurl:settings','inurl:about','inurl:contact',
+      'intext:@gmail.com','intext:@yahoo.com','intext:@outlook.com','intext:email','intext:phone','intext:mobile','intext:address',
+      'filetype:pdf','filetype:doc','filetype:docx','filetype:xls','filetype:xlsx','filetype:csv','filetype:json','filetype:xml',
+      'inurl:api','inurl:login','intitle:login','inurl:signup','intitle:signup','inurl:register','intitle:register',
+      'inurl:posts','inurl:photos','inurl:videos','inurl:stories','inurl:statuses','intext:tweet','intext:status','intext:id=',
+      'intext:uid=','inurl:id','intext:profile.php','inurl:share','inurl:dm','inurl:message','intitle:Instagram','intitle:Twitter',
+      'intitle:Facebook','intitle:LinkedIn','intitle:GitHub','inurl:repos','inurl:followers','inurl:following','inurl:follower',
+      'intext:#','intext:@'
+    ];
+
+    document.getElementById('dorkBtn').addEventListener('click', () => {
+      const phone = document.getElementById('phoneInput').value.trim();
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+      if (!phone) {
+        resultsDiv.innerHTML = '<p>Please enter a valid phone number.</p>';
+        return;
+      }
+
+      const queries = [];
+      sites.forEach(site => {
+        queries.push(`${site} "${phone}"`);
+        powerDorks.forEach(pd => {
+          queries.push(`${site} ${pd} "${phone}"`);
+        });
+      });
+
+      const unique = [...new Set(queries)];
+
+      unique.forEach(q => {
+        const link = document.createElement('a');
+        link.href = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+        link.target = '_blank';
+        link.textContent = q;
+        resultsDiv.appendChild(link);
+      });
+    });
+  </script>
+</body>
+</html>
